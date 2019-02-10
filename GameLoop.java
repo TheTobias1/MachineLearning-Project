@@ -18,7 +18,7 @@ public class GameLoop
     //init renderer
     renderer = new GameRenderer(objectHandler, frame);
     //set the game loop
-    new Timer(1000, tick).start();
+    new Timer(100, tick).start();
 
   }
 
@@ -26,7 +26,6 @@ public class GameLoop
     public void actionPerformed(ActionEvent evt) {
         renderer.render();
         objectHandler.updateObjects(1);
-        System.out.println("tick");
     }
   };
 }

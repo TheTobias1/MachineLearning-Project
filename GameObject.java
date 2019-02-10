@@ -3,27 +3,27 @@ import javax.swing.*;
 
 public class GameObject implements IObject
 {
-  ObjectHandler objectHandler;
-
   int ID;
   String name;
 
   public Color colour;
   public ObjectRect transform;
 
-  public GameObject(String newName, Color newColour, ObjectRect transformData, int newID, ObjectHandler handler)
+  public GameObject(String newName, Color newColour, ObjectRect transformData)
   {
     transform = transformData;
     colour = newColour;
     name = newName;
-    ID = newID;
+    ID = ObjectHandler.generateObjectID();
 
-    objectHandler = handler;
+    ObjectHandler.RenderQueue.add(this);
+    ObjectHandler.CurrentObjects.put(ID, this);
   }
 
   public void Destroy()
   {
-    objectHandler.RenderQueue.remove(this);
+    ObjectHandler.CurrentObjects.remove(ID);
+    ObjectHandler.RenderQueue.remove(this);
   }
 
   public int getID()

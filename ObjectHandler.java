@@ -5,18 +5,20 @@ import javax.swing.*;
 
 public class ObjectHandler
 {
-  int currentIdValue;
-  HashMap<Integer, IObject> CurrentObjects = new HashMap<Integer, IObject>();
-  public ArrayList<GameObject> RenderQueue = new ArrayList<GameObject>();
-  public HashMap<Integer, IUpdatable> UpdateQueue = new HashMap<Integer, IUpdatable>();
+  public static int currentIdValue;
+  public static HashMap<Integer, IObject> CurrentObjects = new HashMap<Integer, IObject>();
+  public static ArrayList<GameObject> RenderQueue;
+  public static HashMap<Integer, IUpdatable> UpdateQueue;
+  public static HashMap<Integer, GameObject> CollidableObjects;
 
   public ObjectHandler()
   {
-    ObjectRect objTrans = new ObjectRect(new Vector2 (-2, 1), new Vector2 (5, 5));
-    SpawnGameObject(objTrans, "Player", Color.BLUE);
+    ObjectHandler.RenderQueue = new ArrayList<GameObject>();
+    ObjectHandler.UpdateQueue = new HashMap<Integer, IUpdatable>();
+    ObjectHandler.CollidableObjects = new HashMap<Integer, GameObject>();
 
-    objTrans = new ObjectRect(new Vector2 (3, 9), new Vector2 (5, 5));
-    SpawnMovingGameObject(objTrans, "Player2", Color.RED, new Vector2(2,-2));
+    ObjectRect newTransform = new ObjectRect(new Vector2(5,10), new Vector2(3,3));
+    MovingGameObject redSquare = new MovingGameObject("RedSquare", Color.RED, newTransform, new Vector2(2,0));
   }
 
   public void updateObjects(double deltaTime)
@@ -42,35 +44,9 @@ public class ObjectHandler
     CurrentObjects.remove(ID);
   }
 
-  public int generateObjectID()
+  public static int generateObjectID()
   {
-    int storedID = currentIdValue;
-    ++currentIdValue;
+    int storedID = ObjectHandler.currentIdValue++;
     return storedID;
-  }
-
-  public GameObject SpawnGameObject(ObjectRect newTransform, String name, Color colour)
-  {
-    int newID = generateObjectID();
-    GameObject newGameObject = new GameObject(name, colour, newTransform, newID, this);
-
-    RenderQueue.add(newGameObject);
-    CurrentObjects.put(newID, newGameObject);
-    System.out.println("NEW OBJECT: " + name);
-
-    return newGameObject;
-  }
-
-  public MovingGameObject SpawnMovingGameObject(ObjectRect newTransform, String name, Color colour, Vector2 velocity)
-  {
-    int newID = generateObjectID();
-    MovingGameObject newGameObject = new MovingGameObject(name, colour, newTransform, newID, this, velocity);
-
-    RenderQueue.add(newGameObject);
-    CurrentObjects.put(newID, newGameObject);
-    UpdateQueue.put(newID, newGameObject);
-    System.out.println("NEW OBJECT: " + name);
-
-    return newGameObject;
   }
 }
