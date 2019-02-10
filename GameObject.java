@@ -23,7 +23,7 @@ public class GameObject implements IObject
 
   public void Destroy()
   {
-    
+    objectHandler.RenderQueue.remove(this);
   }
 
   public int getID()

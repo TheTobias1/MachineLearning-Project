@@ -26,8 +26,10 @@ public class GameRenderer extends JPanel
     super.paintComponent(g);
     for(GameObject obj : objectHandler.RenderQueue)
     {
+      ScreenPosition screenRect = new ScreenPosition(obj.transform);
+
       g.setColor(obj.colour);
-      g.fillRect(100,100,100,100);
+      g.fillRect(screenRect.x, screenRect.y, screenRect.width, screenRect.height);
     }
   }
 }
