@@ -1,8 +1,10 @@
 import java.awt.*;
 import javax.swing.*;
 
-public class MovingGameObject extends GameObject implements IUpdatable
+public class MovingGameObject extends GameObject implements IUpdatable, Runnable
 {
+  public Thread updateThread;
+  double currentDeltaTime;
 
   public Vector2 objectVelocity;
   boolean Moving = true;
@@ -16,7 +18,14 @@ public class MovingGameObject extends GameObject implements IUpdatable
 
   public void update(double deltaTime)
   {
-    Vector2 frameVelocity = Vector2.multiply(objectVelocity, (float)deltaTime);
+    updateThread = new Thread(this, name + ID);
+    currentDeltaTime = deltaTime;
+    updateThread.start();
+  }
+
+  public void run()
+  {
+    Vector2 frameVelocity = Vector2.multiply(objectVelocity, (float)currentDeltaTime);
     transform.position = Vector2.add(transform.position, frameVelocity);
 
     if(Moving)
@@ -28,7 +37,6 @@ public class MovingGameObject extends GameObject implements IUpdatable
         Moving = false;
       }
     }
-
   }
 
   public void Destroy()

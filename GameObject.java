@@ -3,8 +3,8 @@ import javax.swing.*;
 
 public class GameObject implements IObject
 {
-  int ID;
-  String name;
+  protected int ID;
+  protected String name;
 
   public Color colour;
   public ObjectRect transform;

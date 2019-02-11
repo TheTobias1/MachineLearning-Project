@@ -7,6 +7,9 @@ public class GameLoop
   GameRenderer renderer;
   ObjectHandler objectHandler;
 
+  private final int FRAME_RATE = 100;
+  double deltaTime;
+
   public void play()
   {
     //init the object handler
@@ -18,14 +21,15 @@ public class GameLoop
     //init renderer
     renderer = new GameRenderer(objectHandler, frame);
     //set the game loop
-    new Timer(25, tick).start();
+    deltaTime = 100 / FRAME_RATE;
+    new Timer(1000 / FRAME_RATE, tick).start();
 
   }
 
   ActionListener tick = new ActionListener() {
     public void actionPerformed(ActionEvent evt) {
         renderer.render();
-        objectHandler.updateObjects(1);
+        objectHandler.updateObjects(deltaTime);
     }
   };
 }
