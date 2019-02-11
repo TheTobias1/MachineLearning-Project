@@ -9,16 +9,23 @@ public class ObjectHandler
   public static HashMap<Integer, IObject> CurrentObjects = new HashMap<Integer, IObject>();
   public static ArrayList<GameObject> RenderQueue;
   public static HashMap<Integer, IUpdatable> UpdateQueue;
-  public static HashMap<Integer, GameObject> CollidableObjects;
+  public static HashMap<Integer, ICollidable> CollidableObjects;
 
   public ObjectHandler()
   {
     ObjectHandler.RenderQueue = new ArrayList<GameObject>();
     ObjectHandler.UpdateQueue = new HashMap<Integer, IUpdatable>();
-    ObjectHandler.CollidableObjects = new HashMap<Integer, GameObject>();
+    ObjectHandler.CollidableObjects = new HashMap<Integer, ICollidable>();
 
-    ObjectRect newTransform = new ObjectRect(new Vector2(5,10), new Vector2(3,3));
-    MovingGameObject redSquare = new MovingGameObject("RedSquare", Color.RED, newTransform, new Vector2(2,0));
+    ObjectRect newTransform = new ObjectRect(new Vector2(5,20), new Vector2(3,3));
+    MovingGameObject redSquare = new MovingGameObject("RedSquare", Color.RED, newTransform, new Vector2(1,0));
+
+    newTransform = new ObjectRect(new Vector2(5,30), new Vector2(3,3));
+    MovingGameObject orangeSquare = new MovingGameObject("orangeSquare", Color.ORANGE, newTransform, new Vector2(1,0));
+
+    newTransform = new ObjectRect(new Vector2(80,20), new Vector2(8,8));
+    StaticGameObject blueSquare = new StaticGameObject("BlueSquare", Color.BLUE, newTransform);
+
   }
 
   public void updateObjects(double deltaTime)

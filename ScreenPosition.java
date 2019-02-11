@@ -7,10 +7,14 @@ public class ScreenPosition
   public int height;
   public int width;
 
-  public ScreenPosition(ObjectRect rect)
+  public ScreenPosition(ObjectRect rect, float ScreenHeight)
   {
+    //go from the objects center in world space
+    Vector2 pixelPosition = Vector2.add(rect.position, new Vector2(-rect.scale.x / 2, rect.scale.y / 2));
     //Convert to pixel sizes
-    Vector2 pixelPosition = Vector2.multiply(rect.position, 10);
+    pixelPosition = Vector2.multiply(pixelPosition, 10);
+    //invert height so 0,0 is bottom left
+    pixelPosition.y = ScreenHeight - pixelPosition.y;
     Vector2 pixelScale = Vector2.multiply(rect.scale, 10);
 
     //round

@@ -1,3 +1,5 @@
+import java.lang.Math;
+
 public class Vector2
 {
   public float x;
@@ -41,6 +43,17 @@ public class Vector2
   public static float cross2D(Vector2 a, Vector2 b)
   {
     return a.x * b.y - a.y * b.x;
+  }
+
+  public static float distance(Vector2 a, Vector2 b)
+  {
+    double ax = (double)a.x;
+    double bx = (double)b.x;
+    double ay = (double)a.y;
+    double by = (double)b.y;
+
+    double dist =  Math.sqrt(Math.pow(ax - bx, 2) + Math.pow(ay - by, 2));
+    return Math.abs((float)dist);
   }
 
   public static IntersectHit LineIntersect(Vector2 aPoint, Vector2 aDir, Vector2 bPoint, Vector2 bDir)

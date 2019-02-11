@@ -5,6 +5,7 @@ public class MovingGameObject extends GameObject implements IUpdatable
 {
 
   public Vector2 objectVelocity;
+  boolean Moving = true;
 
   public MovingGameObject(String newName, Color newColour, ObjectRect transformData, Vector2 velocity)
   {
@@ -17,6 +18,17 @@ public class MovingGameObject extends GameObject implements IUpdatable
   {
     Vector2 frameVelocity = Vector2.multiply(objectVelocity, (float)deltaTime);
     transform.position = Vector2.add(transform.position, frameVelocity);
+
+    if(Moving)
+    {
+      if(Physics.Raycast(transform.position, Vector2.multiply(objectVelocity, 2)).hit)
+      {
+        System.out.println("HIT SOMETHING");
+        objectVelocity = new Vector2();
+        Moving = false;
+      }
+    }
+
   }
 
   public void Destroy()

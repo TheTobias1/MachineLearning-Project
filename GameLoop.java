@@ -18,7 +18,7 @@ public class GameLoop
     //init renderer
     renderer = new GameRenderer(objectHandler, frame);
     //set the game loop
-    new Timer(100, tick).start();
+    new Timer(25, tick).start();
 
   }
 
