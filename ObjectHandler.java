@@ -17,14 +17,11 @@ public class ObjectHandler
     ObjectHandler.UpdateQueue = new HashMap<Integer, IUpdatable>();
     ObjectHandler.CollidableObjects = new HashMap<Integer, ICollidable>();
 
-    ObjectRect newTransform = new ObjectRect(new Vector2(5,20), new Vector2(3,3));
-    MovingGameObject redSquare = new MovingGameObject("RedSquare", Color.RED, newTransform, new Vector2(1,0));
+    ObjectRect newTransform = new ObjectRect(new Vector2(80,25), new Vector2(3,3));
+    Player player = new Player("Player", Color.BLUE, newTransform);
 
-    newTransform = new ObjectRect(new Vector2(5,30), new Vector2(3,3));
-    MovingGameObject orangeSquare = new MovingGameObject("orangeSquare", Color.ORANGE, newTransform, new Vector2(1,0));
-
-    newTransform = new ObjectRect(new Vector2(80,20), new Vector2(8,8));
-    StaticGameObject blueSquare = new StaticGameObject("BlueSquare", Color.BLUE, newTransform);
+    newTransform = new ObjectRect(new Vector2(50,25), new Vector2(6,200));
+    StaticGameObject blueSquare = new StaticGameObject("BlueSquare", Color.WHITE, newTransform);
 
   }
 

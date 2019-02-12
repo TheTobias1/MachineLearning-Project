@@ -22,6 +22,7 @@ public class Physics
           float distance = Vector2.distance(point, hit.point);
           if(distance < closestDistance)//this is the closet one so far one
           {
+            hit.normal = edge.normal;
             closestHit = hit;
           }
         }

@@ -35,4 +35,24 @@ public class GameObject implements IObject
   {
     return name;
   }
+
+  protected Vector2 TopRightPoint()
+  {
+    return Vector2.add(transform.position, new Vector2(transform.scale.x / 2, transform.scale.y / 2));
+  }
+
+  protected Vector2 BottomRightPoint()
+  {
+    return Vector2.add(transform.position, new Vector2(transform.scale.x / 2, -transform.scale.y / 2));
+  }
+
+  protected Vector2 BottomLeftPoint()
+  {
+    return Vector2.add(transform.position, new Vector2(-transform.scale.x / 2, -transform.scale.y / 2));
+  }
+
+  protected Vector2 TopLeftPoint()
+  {
+    return Vector2.add(transform.position, new Vector2(-transform.scale.x / 2, transform.scale.y / 2));
+  }
 }

@@ -13,19 +13,19 @@ public class StaticGameObject extends GameObject implements ICollidable
 
   public Edge getTopEdge()
   {
-    return new Edge(TopLeftPoint(), TopRightPoint());
+    return new Edge(TopLeftPoint(), TopRightPoint(), new Vector2(0,1));
   }
   public Edge getRightEdge()
   {
-    return new Edge(BottomRightPoint(), TopRightPoint());
+    return new Edge(BottomRightPoint(), TopRightPoint(), new Vector2(1,0));
   }
   public Edge getBottomEdge()
   {
-    return new Edge(BottomRightPoint(), BottomLeftPoint());
+    return new Edge(BottomRightPoint(), BottomLeftPoint(), new Vector2(0,-1));
   }
   public Edge getLeftEdge()
   {
-    return new Edge(TopLeftPoint(), BottomLeftPoint());
+    return new Edge(TopLeftPoint(), BottomLeftPoint(), new Vector2(-1,0));
   }
 
   public Edge[] getAllEdges()
@@ -38,25 +38,5 @@ public class StaticGameObject extends GameObject implements ICollidable
     edges[3] = getLeftEdge();
 
     return edges;
-  }
-
-  protected Vector2 TopRightPoint()
-  {
-    return Vector2.add(transform.position, new Vector2(transform.scale.x / 2, transform.scale.y / 2));
-  }
-
-  protected Vector2 BottomRightPoint()
-  {
-    return Vector2.add(transform.position, new Vector2(transform.scale.x / 2, -transform.scale.y / 2));
-  }
-
-  protected Vector2 BottomLeftPoint()
-  {
-    return Vector2.add(transform.position, new Vector2(-transform.scale.x / 2, -transform.scale.y / 2));
-  }
-
-  protected Vector2 TopLeftPoint()
-  {
-    return Vector2.add(transform.position, new Vector2(-transform.scale.x / 2, transform.scale.y / 2));
   }
 }

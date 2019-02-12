@@ -56,6 +56,22 @@ public class Vector2
     return Math.abs((float)dist);
   }
 
+  public static float magnitude(Vector2 a)
+  {
+    return (float)Math.sqrt(Math.pow((double)a.x, 2) + Math.pow((double)a.y, 2));
+  }
+
+  public static Vector2 normalise(Vector2 a)
+  {
+    float mag = Vector2.magnitude(a);
+    return new Vector2(a.x / mag, a.y / mag);
+  }
+
+  public static Vector2 setMagnitude(Vector2 a, float newMagnitude)
+  {
+    return Vector2.multiply(Vector2.normalise(a), newMagnitude);
+  }
+
   public static IntersectHit LineIntersect(Vector2 aPoint, Vector2 aDir, Vector2 bPoint, Vector2 bDir)
   {
     float kIntersect = Vector2.cross2D(Vector2.subtract(bPoint, aPoint), bDir) / Vector2.cross2D(aDir, bDir);
