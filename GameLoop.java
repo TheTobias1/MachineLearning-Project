@@ -10,14 +10,19 @@ public class GameLoop
   private final int FRAME_RATE = 100;
   double deltaTime;
 
+  public static JFrame gameFrame;
+
   public void play()
   {
-    //init the object handler
-    objectHandler = new ObjectHandler();
     //create a frame
     JFrame frame = new JFrame("Learn To Jump");
+    GameLoop.gameFrame = frame;
     frame.setVisible(true);
     frame.setSize(new Dimension(1000, 500));
+
+    //init the object handler
+    objectHandler = new ObjectHandler();
+
     //init renderer
     renderer = new GameRenderer(objectHandler, frame);
     //set the game loop

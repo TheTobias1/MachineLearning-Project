@@ -22,6 +22,14 @@ public class Vector2
     return new Vector2(-in.x, -in.y);
   }
 
+  public static float dot(Vector2 a, Vector2 b)
+  {
+    Vector2 aN = Vector2.normalise(a);
+    Vector2 bN = Vector2.normalise(b);
+
+    return aN.x * bN.x + aN.y * aN.y;
+  }
+
   public static Vector2 add(Vector2 a, Vector2 b)
   {
     Vector2 output = new Vector2(a.x + b.x, a.y + b.y);
@@ -67,9 +75,21 @@ public class Vector2
     return new Vector2(a.x / mag, a.y / mag);
   }
 
+  public static boolean equals(Vector2 a, Vector2 b)
+  {
+    return a.x == b.x && a.y == b.y;
+  }
+
   public static Vector2 setMagnitude(Vector2 a, float newMagnitude)
   {
     return Vector2.multiply(Vector2.normalise(a), newMagnitude);
+  }
+
+  public static boolean isParralel(Vector2 a, Vector2 b)
+  {
+    float d = Vector2.dot(a, b);
+    System.out.println("dot: " + d);
+    return d == 1f || d == -1f;
   }
 
   public static IntersectHit LineIntersect(Vector2 aPoint, Vector2 aDir, Vector2 bPoint, Vector2 bDir)

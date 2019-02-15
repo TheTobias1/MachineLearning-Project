@@ -1,6 +1,6 @@
 public class Physics
 {
-  public static IntersectHit Raycast(Vector2 point, Vector2 Direction)
+  public static IntersectHit Raycast(Vector2 point, Vector2 direction)
   {
     //define the closest point
     IntersectHit closestHit = new IntersectHit();
@@ -14,8 +14,16 @@ public class Physics
       Edge[] edges = col.getAllEdges();
       for(Edge edge : edges)
       {
+        boolean parralel = Vector2.isParralel(edge.direction, direction);
+
+        boolean badHit = Vector2.distance(point, edge.pointA) < 0.1f ||
+        Vector2.distance(point, edge.pointB) < 0.1f;
+
+        if(badHit)
+          continue;
         //check intersect
-        hit = Vector2.LineIntersect(point, Direction, edge.pointA, edge.direction);
+        hit = Vector2.LineIntersect(point, direction, edge.pointA, edge.direction);
+        hit.isParralel = parralel;
 
         if(hit.hit)//it's a hit
         {
