@@ -8,6 +8,7 @@ public class Player extends GameObject implements IUpdatable
   float speed = 0.6f;
   float acceleration = 0.05f;
   boolean Grounded;
+  boolean hasSecondJump = false;
   public Vector2 currentVelocity;
   Input thisInput;
 
@@ -69,7 +70,8 @@ public class Player extends GameObject implements IUpdatable
       IntersectHit hit = Physics.Raycast(ray, new Vector2(0, -transform.scale.y * 0.6f));
       if(hit.hit && Vector2.equals(hit.normal, new Vector2(0,1)))
       {
-          return true;
+        hasSecondJump = true;
+        return true;
       }
     }
 
@@ -97,36 +99,36 @@ public class Player extends GameObject implements IUpdatable
       IntersectHit curHit = Physics.Raycast(point, frameVelocity);
       if(curHit.hit)
       {
-        clampVelocity(curHit.normal);
-        float dist = Vector2.distance(curHit.point, point);
-        if(dist < closestDistance)//new closest
-        {
-          closestPoint = i;
-          closestIntersect = curHit;
-          closestDistance = dist;
 
-          if(!curHit.isParralel)
+        {
+          clampVelocity(curHit.normal);
+          float dist = Vector2.distance(curHit.point, point);
+          if(dist < closestDistance)//new closest
           {
-            Vector2 newVelocity = Vector2.subtract(point, curHit.point);
-            frameVelocity = Vector2.setMagnitude(frameVelocity, Vector2.magnitude(newVelocity));
-          }
-          else
-          {
-            if(curHit.normal.y == 0)
+            closestPoint = i;
+            closestIntersect = curHit;
+            closestDistance = dist;
+
+            if(!curHit.isParralel)
             {
-              //just clamp the x
-              frameVelocity.x = 0;
+              Vector2 newVelocity = Vector2.subtract(point, curHit.point);
+              frameVelocity = Vector2.setMagnitude(frameVelocity, Vector2.magnitude(newVelocity));
+            }
+            else
+            {
+              if(curHit.normal.y == 0)
+              {
+                System.out.println("bad hit x1: " + curHit.normal.x + " x2: " + frameVelocity.x);
+                //just clamp the x
+                if((curHit.normal.x < 0 && frameVelocity.x > 0) || (curHit.normal.x > 0 && frameVelocity.x < 0))
+                  frameVelocity.x = 0;
+              }
             }
           }
         }
       }
       ++i;
     }
-    if(closestIntersect.hit)
-    {
-      //nothing
-    }
-
 
     transform.position = Vector2.add(transform.position, frameVelocity);
   }
@@ -198,8 +200,10 @@ public class Player extends GameObject implements IUpdatable
 
   void doJump()
   {
-    if(grounded && System.currentTimeMillis() > nextJump)
+    if((grounded || hasSecondJump) && System.currentTimeMillis() > nextJump)
     {
+      if(!grounded)
+        hasSecondJump = false;
       nextJump = System.currentTimeMillis() + 200;
       currentVelocity.y = 1.3f;
     }

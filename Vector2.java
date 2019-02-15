@@ -88,7 +88,6 @@ public class Vector2
   public static boolean isParralel(Vector2 a, Vector2 b)
   {
     float d = Vector2.dot(a, b);
-    System.out.println("dot: " + d);
     return d == 1f || d == -1f;
   }
 

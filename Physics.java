@@ -16,8 +16,8 @@ public class Physics
       {
         boolean parralel = Vector2.isParralel(edge.direction, direction);
 
-        boolean badHit = Vector2.distance(point, edge.pointA) < 0.1f ||
-        Vector2.distance(point, edge.pointB) < 0.1f;
+        boolean badHit = Vector2.distance(point, edge.pointA) < 0.2f ||
+        Vector2.distance(point, edge.pointB) < 0.2f;
 
         if(badHit)
           continue;
@@ -39,4 +39,5 @@ public class Physics
 
     return closestHit;
   }
+
 }
